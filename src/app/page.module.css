@@ -1,0 +1,91 @@
+.main {
+  padding-top: 64px; /* Height of header */
+}
+
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+              url('/gym.jpg') center/cover;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.heroContent {
+  max-width: 800px;
+  padding: 2rem;
+}
+
+.heroContent h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.heroContent p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.ctaButton {
+  display: inline-block;
+  background: #0070f3;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.ctaButton:hover {
+  background: #0051b3;
+}
+
+.features,
+.classes {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.features h2,
+.classes h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2rem;
+}
+
+.featureGrid,
+.classGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.featureCard,
+.classCard {
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.classImage {
+  height: 200px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .heroContent h1 {
+    font-size: 2rem;
+  }
+
+  .heroContent p {
+    font-size: 1rem;
+  }
+} 
