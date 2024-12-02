@@ -1,31 +1,38 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './Header.module.css';
 import axios from 'axios';
 import CreateClassForm from './CreateClassForm';
 
-const Header = ({   }) => {
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showCreateClassForm, setShowCreateClassForm] = useState(false);
+  const [user, setUser] = useState(null);
   const router = useRouter();
-  const user = localStorage.getItem('user');
+  
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   const handleLogout = () => {
     router.push('/logout');
   };
-  const [applied, setApplied] = useState('');
 
   const handleApply = () => {
-    console.log(JSON.parse(user).id);
-    axios.post('/api/apply', {  
-      id: JSON.parse(user).id,
-    
-    }).then(res => {
-      setApplied(res.data.message);
-    });
+    if (user) {
+      axios.post('/api/apply', {  
+        id: user.id,
+      }).then(res => {
+        console.log(res.data.message);
+      });
+    }
   };
 
   return (
@@ -54,13 +61,13 @@ const Header = ({   }) => {
               Membership
             </Link>}
 
-            {user && JSON.parse(user).role === 'trainee' && (
+            {user && user.role === 'trainee' && (
               <p onClick={handleApply} className={styles.navLink}>
                 Apply to be a trainer
               </p>
             )}
 
-            {user && JSON.parse(user).role === 'trainer' && (
+            {user && user.role === 'trainer' && (
               <button
                 onClick={() => setShowCreateClassForm(true)}
                 className={styles.navLink}
@@ -80,16 +87,16 @@ const Header = ({   }) => {
                   onClick={() => setShowDropdown(!showDropdown)}
                   className={styles.userButton}
                 >
-                  {JSON.parse(user).name}
+                  {user.name}
                 </button>
                 {showDropdown && (
                   <div className={styles.dropdown}>
-                    {JSON.parse(user).role === 'admin' && (
+                    {user.role === 'admin' && (
                       <Link href="/admin" className={styles.dropdownItem}>
                         Admin Dashboard
                       </Link>
                     )}
-                    {JSON.parse(user).role === 'trainer' && (
+                    {user.role === 'trainer' && (
                       <Link href="/trainer-dashboard" className={styles.dropdownItem}>
                         Trainer Dashboard
                       </Link>
