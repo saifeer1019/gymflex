@@ -9,7 +9,13 @@ export default function Schedule() {
   const [classes, setClasses] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
-  const user = localStorage.getItem('user');
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
   useEffect(() => {
     fetchClasses();
   }, [selectedDate]);

@@ -11,9 +11,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showCreateClassForm, setShowCreateClassForm] = useState(false);
-  const [user, setUser] = useState(null);
+ 
   const router = useRouter();
-  
+  const [user, setUser] = useState(null);
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
